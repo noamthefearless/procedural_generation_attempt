@@ -6,7 +6,7 @@ class RandTools
 public:
 
 	static void setSeed(unsigned long long seed);
-	static int getRandomVal(int min, int max);
-
+	static int getRandomVal(unsigned int min, unsigned int max);
+	static bool getPrecentage(unsigned int chance, unsigned int precent);
 };
 

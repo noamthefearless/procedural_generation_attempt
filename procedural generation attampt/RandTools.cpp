@@ -19,9 +19,20 @@ getRandomVal: this function will return a random value in a specified scoppe
 input: the scope (maximum and minimum values)
 output: the random number
 */
-int RandTools::getRandomVal(int min, int max)
+int RandTools::getRandomVal(unsigned int min, unsigned int max)
 {
 	return rand() % (max - min + 1) + min;
+}
+
+
+bool RandTools::getPrecentage(unsigned int chance, unsigned int precent)
+{
+	if (chance == 0)
+	{
+		return false;
+	}
+	unsigned int result = RandTools::getRandomVal(1, precent);
+	return chance >= result;
 }
 
 
