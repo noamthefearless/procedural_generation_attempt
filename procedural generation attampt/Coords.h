@@ -9,7 +9,7 @@ typedef struct xyz
 
 enum Directions
 {
-	NORTH = 0, SOUTH = 1, WEST = 2, EAST = 3
+	NORTH = 0, SOUTH = 1, WEST = 2, EAST = 3, UP = 4, DOWN = 5
 };
 
 
