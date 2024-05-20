@@ -20,10 +20,11 @@ public:
 	Coords(long long x, long long y, long long z);// specific c'tor
 	Coords(Coords& other);// copy c'tor
 
-	Coords operator=(const Coords& other); // = operator
+	Coords& operator=(const Coords& other); // = operator
 	bool operator==(const Coords& other); // = 
 
-	void move(const int steps = 1, Directions facing); // move
+	void move(const int steps, Directions facing); // move x spaces
+	void move(Directions facing); // moving 1
 
 	xyz getCoords() const;
 
