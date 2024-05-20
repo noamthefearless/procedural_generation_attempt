@@ -25,7 +25,7 @@ public:
 
 	void move(const int steps = 1, Directions facing); // move
 
-
+	xyz getCoords() const;
 
 private:
 	void changeXaxis(int steps); // changes the X axis
