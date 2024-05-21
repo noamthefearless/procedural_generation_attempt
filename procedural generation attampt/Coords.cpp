@@ -58,6 +58,11 @@ xyz Coords::getCoords() const
 }
 
 
+/*
+move: this function will call one of the functions that changes the axis's values
+input: the direction to go, and an optional parameter for the number of steps. if not specified then 1
+output: non
+*/
 void Coords::move(Directions facing, int steps)
 {
 	switch (facing)

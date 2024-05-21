@@ -129,11 +129,13 @@
   <ItemGroup>
     <ClCompile Include="Coords.cpp" />
     <ClCompile Include="RandTools.cpp" />
+    <ClCompile Include="Room.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coords.h" />
     <ClInclude Include="RandTools.h" />
+    <ClInclude Include="Room.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
