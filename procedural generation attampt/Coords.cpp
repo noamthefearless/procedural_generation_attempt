@@ -57,12 +57,8 @@ xyz Coords::getCoords() const
 	return m_coordinates;
 }
 
-void Coords::move(Directions facing)
-{
-	move(1, facing);
-}
 
-void Coords::move(int steps, Directions facing)
+void Coords::move(Directions facing, int steps)
 {
 	switch (facing)
 	{

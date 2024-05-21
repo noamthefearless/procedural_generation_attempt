@@ -23,8 +23,7 @@ public:
 	Coords& operator=(const Coords& other); // = operator
 	bool operator==(const Coords& other); // = 
 
-	void move(const int steps, Directions facing); // move x spaces
-	void move(Directions facing); // moving 1
+	void move(Directions facing, int steps = 1); // move x spaces
 
 	xyz getCoords() const;
 
