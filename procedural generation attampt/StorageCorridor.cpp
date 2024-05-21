@@ -48,3 +48,23 @@ vector<Coords> StorageCorridor::getRoomCoords() const
 
 
 
+/*
+getDoorCoords: this function will only return the coords where doors are placeable
+input: non
+output: a vector with the coords
+*/
+vector<Coords> StorageCorridor::getDoorCoords() const
+{
+	vector<Coords> result = getRoomCoords();
+	result.erase(result.begin() + 1);// only the sides of a corridor are able to have doors
+	return result;
+}
+
+
+
+
+
+
+
+
+
