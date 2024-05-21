@@ -11,6 +11,8 @@ typedef struct Door
 {
 	Coords firstSide;
 	Coords secondSide;
+	Room* room1;
+	Room* room2;
 	Directions facing;
 };
 
@@ -45,7 +47,7 @@ public:
 
 	//getters:
 	Coords getRoot() const;
-	RoomTypes getTypr(); const
+	RoomTypes getType(); const
 	RotationTypes getRotation(); const
 	int getMaxDoors() const;
 
