@@ -12,6 +12,39 @@ StorageCorridor::StorageCorridor(Coords& root, RoomTypes& type, RotationTypes& r
 
 
 
+/*
+getRoomCoords: this function will return the coords for a storage corridor
+input: non
+output: a vector of the coords
+*/
+vector<Coords> StorageCorridor::getRoomCoords() const
+{
+	vector<Coords> result;
+	Coords coord = m_root;
+	result.push_back(coord);//pushing the root
+	Directions facing;
+	switch (m_rotation)
+	{
+	case STORAGE_CORRIDOR_FACING_NORTH: //mathcing rotation
+		facing = NORTH;
+		break;
+	case STORAGE_CORRIDOR_FACING_EAST:
+		facing = EAST;
+		break;
+	default:
+		std::cerr << "debug: error occured, rotation in storage corridor" << std::endl;
+		break;
+	}
+
+	coord.move(facing);//moving and adding to the result twice. storage corridors are only 3 coordinates
+	result.push_back(coord);
+	coord.move(facing);
+	result.push_back(coord);
+	return result;
+}
+
+
+
 
 
 
