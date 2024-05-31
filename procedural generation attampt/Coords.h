@@ -18,7 +18,7 @@ class Coords
 public:
 	Coords() = default;
 	Coords(long long x, long long y, long long z);// specific c'tor
-	Coords(Coords& other);// copy c'tor
+	Coords(const Coords& other);// copy c'tor
 
 	Coords& operator=(const Coords& other); // = operator
 	bool operator==(const Coords& other); // = 

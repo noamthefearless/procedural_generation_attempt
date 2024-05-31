@@ -12,7 +12,7 @@ Coords::Coords(long long x, long long y, long long z)
 	m_coordinates.z = z;
 }
 
-Coords::Coords(Coords& other)
+Coords::Coords(const Coords& other)
 {
 	*this = other;
 }

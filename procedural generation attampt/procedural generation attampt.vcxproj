@@ -131,11 +131,15 @@
     <ClCompile Include="RandTools.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="StorageCorridor.cpp" />
+    <ClCompile Include="stringTools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coords.h" />
     <ClInclude Include="RandTools.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="StorageCorridor.h" />
+    <ClInclude Include="stringTools.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

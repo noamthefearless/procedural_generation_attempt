@@ -5,16 +5,14 @@
 using std::string;
 using std::vector;
 
+struct Door;
 
 
-typedef struct Door
-{
-	Coords firstSide;
-	Coords secondSide;
-	Room* room1;
-	Room* room2;
-	Directions facing;
-};
+
+
+
+
+
 
 
 
@@ -36,9 +34,11 @@ enum RoomTypes
 class Room
 {
 public:
-	Room(Coords root, RoomTypes type, RotationTypes rotation, int maxDoors, Door door); // c'tor
+	Room(Coords& root, RoomTypes& type, RotationTypes& rotation, int& maxDoors, Door& door); // c'tor
 
 	bool isCoordInRoom(Coords coord) const;
+	void addDoor(Door& door);
+
 
 	virtual vector<Coords> getRoomCoords() const = 0;
 	virtual vector<Coords> getDoorCoords() const = 0;
@@ -47,20 +47,27 @@ public:
 
 	//getters:
 	Coords getRoot() const;
-	RoomTypes getType(); const
-	RotationTypes getRotation(); const
+	RoomTypes getType() const;
+	RotationTypes getRotation() const;
 	int getMaxDoors() const;
 
 protected:
 
 
 	Coords m_root;
-	RoomTypes type;
-	RotationTypes rotation;
+	RoomTypes m_type;
+	RotationTypes m_rotation;
 	vector<Door> m_doors;
-	int maxDoors;
+	int m_maxDoors;
 };
 
+typedef struct Door
+{
+	Coords firstSide;
+	Coords secondSide;
+	Room* leadingTo = nullptr;
+	Directions facing;
+};
 
 
 
