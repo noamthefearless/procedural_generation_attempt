@@ -12,7 +12,7 @@ Coords::Coords(long long x, long long y, long long z)
 	m_coordinates.z = z;
 }
 
-Coords::Coords(Coords& other)
+Coords::Coords(const Coords& other)
 {
 	*this = other;
 }
@@ -58,6 +58,11 @@ xyz Coords::getCoords() const
 }
 
 
+/*
+move: this function will call one of the functions that changes the axis's values
+input: the direction to go, and an optional parameter for the number of steps. if not specified then 1
+output: non
+*/
 void Coords::move(Directions facing, int steps)
 {
 	switch (facing)
