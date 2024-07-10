@@ -63,11 +63,5 @@ vector<Coords> StorageCorridor::getDoorCoords() const
 
 
 
-string StorageCorridor::getRoomAsStr() const
-{
-	return "";
-}
-
-
 
 

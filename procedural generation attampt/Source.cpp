@@ -17,14 +17,12 @@ int main()
 	d.secondSide = p;
 	d.leadingTo = nullptr;
 	int a = 2;
-	RoomTypes u = STORAGE_CORRIDOR;
+	RoomTypes u = STORAGE_LONG_CORRIDOR;
 	RotationTypes l = STORAGE_CORRIDOR_FACING_EAST;
 	Room* g = new StorageCorridor(r, u, l, a, d);
 
 
-	std::cout << stringTools::deserializeRoom(stringTools::drawCoord(g->getRoomCoords()[2], g));
-	std::cout << stringTools::deserializeRoom(stringTools::drawCoord(g->getRoomCoords()[1], g));
-	std::cout << stringTools::deserializeRoom(stringTools::drawCoord(g->getRoomCoords()[0], g));
+	std::cout << stringTools::deserializeRoom(stringTools::drawRoom(g));;
 
 
 

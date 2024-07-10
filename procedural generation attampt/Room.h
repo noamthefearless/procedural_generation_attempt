@@ -42,7 +42,6 @@ public:
 
 	virtual vector<Coords> getRoomCoords() const = 0;
 	virtual vector<Coords> getDoorCoords() const = 0;
-	virtual string getRoomAsStr() const = 0;
 
 
 	//getters:
