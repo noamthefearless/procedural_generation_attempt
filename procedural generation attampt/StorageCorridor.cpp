@@ -40,6 +40,21 @@ vector<Coords> StorageCorridor::getRoomCoords() const
 	result.push_back(coord);
 	coord.move(facing);
 	result.push_back(coord);
+	coord.move(SOUTH);
+	coord.move(EAST);
+	result.push_back(coord);
+	coord.move(EAST);
+	result.push_back(coord);
+	coord.move(NORTH);
+	result.push_back(coord);
+	coord.move(SOUTH, 2);
+	result.push_back(coord);
+	//coord.move(SOUTH);
+	//result.push_back(coord);
+	
+
+
+
 	return result;
 }
 

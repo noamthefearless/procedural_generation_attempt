@@ -18,8 +18,9 @@ int main()
 	d.leadingTo = nullptr;
 	int a = 2;
 	RoomTypes u = STORAGE_LONG_CORRIDOR;
-	RotationTypes l = STORAGE_CORRIDOR_FACING_EAST;
+	RotationTypes l = STORAGE_CORRIDOR_FACING_NORTH;
 	Room* g = new StorageCorridor(r, u, l, a, d);
+
 
 
 	std::cout << stringTools::deserializeRoom(stringTools::drawRoom(g));;

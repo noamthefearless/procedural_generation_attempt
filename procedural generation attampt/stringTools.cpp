@@ -47,6 +47,7 @@ string stringTools::deserializeRoom(vector<string> room)
 		{
 			result += itt + "\n";
 		}
+			
 
 	}
 	return result;
@@ -72,65 +73,159 @@ output: a seriallized string format
 vector<string> stringTools::drawCoord(Coords coord, Room* coordRoom)
 {
 	vector<string> result;
+	vector<Coords> sameLineCoords;
+	Coords counterCoord = coord;
+	int ghostCoordCount = 0;
 	//checking for walls
 	bool isRightWall = isWallThere(coord, coordRoom, EAST), isLeftWall = isWallThere(coord, coordRoom, WEST), 
 		isUpWall = isWallThere(coord, coordRoom, NORTH), isDownWall = isWallThere(coord, coordRoom, SOUTH);
-	string layer = "";
+	string layerUpAndDown = "             ", layerLeftAndRight = "             ";
+	if (isRightWall)
+	{
+		layerUpAndDown = "";
+	}
+
+
 
 	if (isUpWall)//starting with upper wall
 	{
-		layer = "-------------";
+		layerUpAndDown = "-------------";
 		if (isRightWall)
 		{
-			layer[12] = ' ';//setting values
+			layerUpAndDown[12] = ' ';//setting values
 		}
 		if (isLeftWall)
 		{
-			layer[0] = ' ';
+			layerUpAndDown[0] = ' ';
 		}
 	}
-	result.push_back(layer);
-
-	layer = "             ";
+	result.push_back(layerUpAndDown);
 	if (isRightWall)
 	{
-		layer[12] = '|';//setting values for the left and right walls
+		layerLeftAndRight[12] = '|';//setting values for the left and right walls
 	}
 	if (isLeftWall)
 	{
-		layer[0] = '|';
+		layerLeftAndRight[0] = '|';
 	}
 	for (int i = 1; i < 6; i++)
 	{
-		result.push_back(layer);
+		result.push_back(layerLeftAndRight);
 	}
 
-	layer = "";
-
+	layerUpAndDown = "             ";
+	if (isRightWall)
+	{
+		layerUpAndDown = "";
+	}
 	if (isDownWall)//same thing as before for a downWall
 	{
-		layer = "-------------";
+		layerUpAndDown = "-------------";
 		if (isRightWall)
 		{
-			layer[12] = ' ';
+			layerUpAndDown[12] = ' ';
 		}
 		if (isLeftWall)
 		{
-			layer[0] = ' ';
+			layerUpAndDown[0] = ' ';
 		}
 	}
-	result.push_back(layer);
+	result.push_back(layerUpAndDown);
+
+
 
 	//edit values for doors
 	//yet to be implemented
 
 
 	//add ghostCoords (indentation) if needed
-	//yet to be implemented
+	for (auto itt : coordRoom->getRoomCoords())
+	{
+		if (coord.getCoords().x == itt.getCoords().x)
+		{
+			sameLineCoords.push_back(itt);
+		}
+	}
+
+
+	if (isLeftWall)
+	{
+		if (coord.getCoords().z == stringTools::getMostLeftCoord(sameLineCoords).getCoords().z)
+		{
+			result = stringTools::addingGhostCoords(result, coord.getCoords().z - stringTools::getMostLeftCoord(coordRoom->getRoomCoords()).getCoords().z);
+		}
+		else
+		{
+			do
+			{
+				counterCoord.move(WEST);
+				ghostCoordCount++;
+			} while (coordRoom->isCoordInRoom(counterCoord) == false);
+			result = stringTools::addingGhostCoords(result,ghostCoordCount - 1);
+		}
+	}
+
 
 
 	return result;
 }
+
+
+
+/*
+getMostLeftCoord: this function will find the most left coord and return it
+input: the vector of coords
+output: the far left coord
+*/
+Coords stringTools::getMostLeftCoord(vector<Coords> vec)
+{
+	Coords result;
+	if (vec.size() < 1)
+	{
+		return result;
+	}
+	result = vec[0];// starting value
+
+	for (int i = 1; i < vec.size(); i++)
+	{
+		if (vec[i].getCoords().z < result.getCoords().z)// looking for lower z value
+		{
+			result = vec[i];
+		}
+	}
+	return result;
+}
+
+
+
+
+
+
+
+
+/*
+addingGhostCoords: this function will add a set number of ghost coords to a serriallized string
+input: the vector and the number of ghost coords
+output: the new vector
+*/
+vector<string> stringTools::addingGhostCoords(vector<string> vec, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < vec.size(); j++)
+		{
+			if (vec[j] != "")
+			{
+				vec[j] = "             " + vec[j];// adding indent
+			}
+		}
+	}
+	return vec;
+}
+
+
+
+
 
 
 
@@ -169,17 +264,13 @@ vector<string> stringTools::drawRoom(Room* Room)
 		else// if the X level changes, we have 1 layer, and we push it and go to the next layer
 		{
 			currentXval = coords[i].getCoords().x;
-			valHolder = stringTools::deserializeRoom(temp);
-			valHolder.pop_back();// because the way deserallization works, there is an extra newline here
-			result.push_back(valHolder);// it is easier to just remove it, than to change the algorithem
+			result.insert(result.end(), temp.begin(), temp.end());// it is easier to just remove it, than to change the algorithem
 
 
 			temp = roomPieces[i];
 		}
 	}
-	valHolder = stringTools::deserializeRoom(temp);// the last layer is never pushed, so we push it here
-	valHolder.pop_back();
-	result.push_back(valHolder);
+	result.insert(result.end(), temp.begin(), temp.end());// it is easier to just remove it, than to change the algorithem
 
 
 
@@ -196,13 +287,13 @@ output: the connected vector
 */
 vector<string> stringTools::connectSeriallizedStrings(vector<string> s1, vector<string> s2)
 {
-	if (s1.size() != s2.size())//if noit same size
+	int size = s1.size();
+	if (s1.size() > s2.size())//if noit same size
 	{
-		s1.clear();
-		return s1;//return empty vector
+		size = s2.size();
 	}
 
-	for (int i = 0; i < s1.size(); i++)
+	for (int i = 0; i < size; i++)
 	{
 		s1[i] += s2[i];// adding values
 	}
