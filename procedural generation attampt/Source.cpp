@@ -10,15 +10,15 @@
 int main()
 {
 	Coords r, p;
-	p.move(EAST);
+	p.move(SOUTH);
 	Door d;
-	d.facing = EAST;
+	d.facing = SOUTH;
 	d.firstSide = r;
 	d.secondSide = p;
 	d.leadingTo = nullptr;
-	int a = 2;
-	RoomTypes u = STORAGE_LONG_CORRIDOR;
-	RotationTypes l = STORAGE_CORRIDOR_FACING_NORTH;
+	int a = 1;
+	RoomTypes u = STORAGE_CORRIDOR;
+	RotationTypes l = STORAGE_CORRIDOR_FACING_EAST;
 	Room* g = new StorageCorridor(r, u, l, a, d);
 
 

@@ -135,7 +135,7 @@ vector<string> stringTools::drawCoord(Coords coord, Room* coordRoom)
 
 
 	//edit values for doors
-	//yet to be implemented
+	result = stringTools::addCoordDoors(coord, coordRoom, result);
 
 
 	//add ghostCoords (indentation) if needed
@@ -150,7 +150,7 @@ vector<string> stringTools::drawCoord(Coords coord, Room* coordRoom)
 
 	if (isLeftWall)
 	{
-		if (coord.getCoords().z == stringTools::getMostLeftCoord(sameLineCoords).getCoords().z)
+		if (coord.getCoords().z == stringTools::getMostLeftCoord(sameLineCoords).getCoords().z)// adding ghost coords accordingly
 		{
 			result = stringTools::addingGhostCoords(result, coord.getCoords().z - stringTools::getMostLeftCoord(coordRoom->getRoomCoords()).getCoords().z);
 		}
@@ -158,10 +158,10 @@ vector<string> stringTools::drawCoord(Coords coord, Room* coordRoom)
 		{
 			do
 			{
-				counterCoord.move(WEST);
+				counterCoord.move(WEST);//looking for last place in room to the left
 				ghostCoordCount++;
 			} while (coordRoom->isCoordInRoom(counterCoord) == false);
-			result = stringTools::addingGhostCoords(result,ghostCoordCount - 1);
+			result = stringTools::addingGhostCoords(result,ghostCoordCount - 1);//its also counting the coord itself
 		}
 	}
 
@@ -198,8 +198,29 @@ Coords stringTools::getMostLeftCoord(vector<Coords> vec)
 
 
 
-
-
+/*
+addCoordDoors: this function will add doors to a coord in seriallized form
+input: the coord, the room and the seriallized room string
+output: the new room string with the doors
+*/
+vector<string> stringTools::addCoordDoors(Coords coord, Room* Room, vector<string> vecStr)
+{
+	vector<Door> doorsInCoord = Room->getDoorsOfCoord(coord);//getting all of the doors in this coord
+	for (auto itt : doorsInCoord)
+	{
+		if (itt.facing == NORTH || itt.facing == SOUTH)
+		{
+			vecStr[(vecStr.size() - 1) * itt.facing][5] = 'd';//calculating if the door is facing NORTH or SOUTH
+			vecStr[(vecStr.size() - 1) * itt.facing][6] = 'd';
+			vecStr[(vecStr.size() - 1) * itt.facing][7] = 'd';
+		}
+		else
+		{
+			vecStr[3][12 * (itt.facing - 2)] = 'd';//seeting d marker that will be turned into a space in cleanup
+		}
+	}
+	return vecStr;
+}
 
 
 
@@ -331,7 +352,7 @@ vector<string> stringTools::cleanUpRoomStr(vector<string> roomStr)
 	}
 
 
-	for (int i = 1; i < roomStr.size() - 1; i++)//and a last loop to change marks
+	for (int i = 0; i < roomStr.size(); i++)//and a last loop to change marks
 	{
 		for (int j = 0; j < roomStr[i].size(); j++)
 		{
@@ -339,6 +360,10 @@ vector<string> stringTools::cleanUpRoomStr(vector<string> roomStr)
 			{
 				roomStr[i][j] = '|';
 
+			}
+			else if (roomStr[i][j] == 'd')
+			{
+				roomStr[i][j] = ' ';
 			}
 		}
 
