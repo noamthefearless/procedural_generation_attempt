@@ -4,7 +4,7 @@
 
 
 
-Room::Room(Coords& root, RoomTypes& type, RotationTypes& rotation, int& maxDoors, Door& door)
+Room::Room(Coords& root, RoomTypes type, RotationTypes rotation, int maxDoors, Door& door)
 {
 	m_root = root;
 	m_type = type;

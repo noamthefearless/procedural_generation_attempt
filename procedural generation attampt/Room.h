@@ -34,7 +34,7 @@ enum RoomTypes
 class Room
 {
 public:
-	Room(Coords& root, RoomTypes& type, RotationTypes& rotation, int& maxDoors, Door& door); // c'tor
+	Room(Coords& root, RoomTypes type, RotationTypes rotation, int maxDoors, Door& door); // c'tor
 
 	bool isCoordInRoom(Coords coord) const;
 	void addDoor(Door& door);

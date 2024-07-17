@@ -70,7 +70,7 @@ drawCoord: this function will draw one coord of a room
 input: the coord and the room ptr
 output: a seriallized string format
 */
-vector<string> stringTools::drawCoord(Coords coord, Room* coordRoom)
+vector<string> stringTools::drawCoord(Coords coord, Room* coordRoom, bool isWalker)
 {
 	vector<string> result;
 	vector<Coords> sameLineCoords;
@@ -136,7 +136,10 @@ vector<string> stringTools::drawCoord(Coords coord, Room* coordRoom)
 
 	//edit values for doors
 	result = stringTools::addCoordDoors(coord, coordRoom, result);
-
+	if (isWalker)
+	{
+		result[3][6] = '*';
+	}
 
 	//add ghostCoords (indentation) if needed
 	for (auto itt : coordRoom->getRoomCoords())
@@ -256,7 +259,7 @@ drawRoom: this function will make a snapshot of a room
 input: the room ptr
 output: a seriallized string of the room pic
 */
-vector<string> stringTools::drawRoom(Room* Room)
+vector<string> stringTools::drawRoom(Room* Room, Coords walkerCoord)
 {
 	vector<Coords> coords = Room->getRoomCoords();// getting coords
 	vector<vector<string>> roomPieces;
@@ -272,7 +275,7 @@ vector<string> stringTools::drawRoom(Room* Room)
 
 	for (auto itt : coords)
 	{
-		roomPieces.push_back(drawCoord(itt, Room));// drawing each coord
+		roomPieces.push_back(drawCoord(itt, Room, walkerCoord == itt));// drawing each coord
 	}
 	currentXval = coords[0].getCoords().x;// starting to connect the X vals
 	temp = roomPieces[0];//first serrialized string
