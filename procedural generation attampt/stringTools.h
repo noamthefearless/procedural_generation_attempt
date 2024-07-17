@@ -21,6 +21,7 @@ public:
 	static vector<string> drawRoom(Room* Room);
 	static vector<string> connectSeriallizedStrings(vector<string> s1, vector<string> s2);
 	static vector<string> addingGhostCoords(vector<string> vec, int n);
+	static vector<string> cleanUpRoomStr(vector<string> roomStr);
 
 
 

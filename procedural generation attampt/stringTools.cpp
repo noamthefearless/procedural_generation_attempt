@@ -274,8 +274,81 @@ vector<string> stringTools::drawRoom(Room* Room)
 
 
 
-	return result;
+	return stringTools::cleanUpRoomStr(result);
+	//return result;
 }
+
+
+
+/*
+cleanUpRoomStr: this function will clean UP a room str and make it look better
+input: the seriallized string of the room
+output: the room after the cleanup
+*/
+vector<string> stringTools::cleanUpRoomStr(vector<string> roomStr)
+{
+	int maxStrSize = roomStr[0].size();
+	for (int i = 0; i < roomStr.size(); i++)// finding the maximum size of a row in the room
+	{
+		if (roomStr[i].size() > maxStrSize)
+		{
+			maxStrSize = roomStr[i].size();
+		}
+	}
+	for (int i = 0; i < roomStr.size(); i++)// topping off every line that is less than the max size
+	{
+		while (roomStr[i].size() < maxStrSize)
+		{
+			roomStr[i] = roomStr[i] + " ";// this way, we have more ways to change the room if we want to in the future
+		}
+	}
+
+
+	for (int i = 1; i < roomStr.size() - 1; i++)
+	{
+		for (int j = 0; j < roomStr[i].size(); j++)// going through every line in the string
+		{
+			if (roomStr[i][j] == ' ' && (roomStr[i - 1][j] == '|' || roomStr[i + 1][j] == '|'))// checking if a hole is present
+			{
+		
+				if (j == 0 && roomStr[i][j + 1] != '-')// if the hole is there, and its not a wall edge, mark it
+				{
+					roomStr[i][j] = 'k';
+				}
+				else if (j == roomStr[i].size() - 1 && roomStr[i][j - 1] != '-')// checing the other side
+				{
+					roomStr[i][j] = 'k';
+				}
+			else if (j != 0 && j != roomStr[i].size() - 1 && roomStr[i][j - 1] != '-' && roomStr[i][j + 1] != '-')
+				{
+					roomStr[i][j] = 'k';// and also if its a central wall.
+				}
+
+
+			}
+		}
+		
+	}
+
+
+	for (int i = 1; i < roomStr.size() - 1; i++)//and a last loop to change marks
+	{
+		for (int j = 0; j < roomStr[i].size(); j++)
+		{
+			if (roomStr[i][j] == 'k')// changing marked holes to walls
+			{
+				roomStr[i][j] = '|';
+
+			}
+		}
+
+	}
+
+
+	return roomStr;
+}
+
+
 
 
 
