@@ -4,7 +4,7 @@
 
 
 
-Room::Room(Coords& root, RoomTypes& type, RotationTypes& rotation, int& maxDoors, Door& door)
+Room::Room(Coords& root, RoomTypes type, RotationTypes rotation, int maxDoors, Door& door)
 {
 	m_root = root;
 	m_type = type;
@@ -33,6 +33,50 @@ bool Room::isCoordInRoom(Coords coord) const
 	return false;
 }
 
+
+
+/*
+isDoorCoord: this function will check a coord if its a door coord
+input: a coord to check
+output: a bool
+*/
+bool Room::isDoorCoord(Coords coord) const
+{
+	vector<Coords> doors = getDoorCoords();//getting doors
+	for (auto itt : doors)
+	{
+		if (coord == itt)//if coord door
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+/*
+getDoorsOfCoords: this function will return all doors of a specific coord
+input: the coord
+output: the doors of the coord
+*/
+vector<Door> Room::getDoorsOfCoord(Coords coord) const
+{
+	vector<Door> result, allDoors;
+	if (isDoorCoord(coord) == false)//checking if its even a door coord
+	{
+		return result;
+	}
+	allDoors = getDoors();
+	for (auto itt : allDoors)
+	{
+		if (itt.firstSide == coord || itt.secondSide == coord)// if one of the sides of the door is the coord
+		{
+			result.push_back(itt);
+		}
+	}
+	return result;
+
+
+}
 
 
 
@@ -91,6 +135,15 @@ int Room::getMaxDoors() const
 }
 
 
+/*
+getDoor: a getter function for the doors
+input: non
+output: the Doors
+*/
+vector<Door> Room::getDoors() const
+{
+	return m_doors;
+}
 
 
 

@@ -4,8 +4,8 @@
 /*
 default c'tor: calling c'tor of Room class
 */
-StorageCorridor::StorageCorridor(Coords& root, RoomTypes& type, RotationTypes& rotation, int& maxDoors, Door& door)
-	: Room(root, type, rotation, maxDoors, door)
+StorageCorridor::StorageCorridor(Coords& root, RoomTypes type, RotationTypes rotation, Door& door)
+	: Room(root, type, rotation, 2, door)
 {
 
 }
@@ -40,6 +40,20 @@ vector<Coords> StorageCorridor::getRoomCoords() const
 	result.push_back(coord);
 	coord.move(facing);
 	result.push_back(coord);
+	
+	//coord.move(WEST);
+	//result.push_back(coord);
+	//coord.move(WEST);
+	//result.push_back(coord);
+	//coord.move(SOUTH);
+	//result.push_back(coord);
+	//coord.move(SOUTH);
+	//result.push_back(coord);
+	//coord.move(EAST);
+	//result.push_back(coord);
+
+
+
 	return result;
 }
 
@@ -61,12 +75,6 @@ vector<Coords> StorageCorridor::getDoorCoords() const
 }
 
 
-
-
-string StorageCorridor::getRoomAsStr() const
-{
-	return "";
-}
 
 
 

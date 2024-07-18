@@ -34,15 +34,15 @@ enum RoomTypes
 class Room
 {
 public:
-	Room(Coords& root, RoomTypes& type, RotationTypes& rotation, int& maxDoors, Door& door); // c'tor
+	Room(Coords& root, RoomTypes type, RotationTypes rotation, int maxDoors, Door& door); // c'tor
 
 	bool isCoordInRoom(Coords coord) const;
 	void addDoor(Door& door);
-
+	bool isDoorCoord(Coords coord) const;
+	vector<Door> getDoorsOfCoord(Coords coord) const;
 
 	virtual vector<Coords> getRoomCoords() const = 0;
 	virtual vector<Coords> getDoorCoords() const = 0;
-	virtual string getRoomAsStr() const = 0;
 
 
 	//getters:
@@ -50,6 +50,7 @@ public:
 	RoomTypes getType() const;
 	RotationTypes getRotation() const;
 	int getMaxDoors() const;
+	vector<Door> getDoors() const;
 
 protected:
 

@@ -4,9 +4,8 @@
 class StorageCorridor : public Room
 {
 public:
-	StorageCorridor(Coords& root, RoomTypes& type, RotationTypes& rotation, int& maxDoors, Door& door);
+	StorageCorridor(Coords& root, RoomTypes type, RotationTypes rotation, Door& door);
 	virtual vector<Coords> getRoomCoords() const;
 	virtual vector<Coords> getDoorCoords() const;
-	virtual string getRoomAsStr() const;
 };
 
