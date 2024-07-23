@@ -134,6 +134,7 @@
     <ClCompile Include="StorageCorridor.cpp" />
     <ClCompile Include="StorageIntersection.cpp" />
     <ClCompile Include="StorageLongCorridor.cpp" />
+    <ClCompile Include="StorageTurn.cpp" />
     <ClCompile Include="stringTools.cpp" />
     <ClCompile Include="StorageT_Intersection.cpp" />
   </ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="StorageCorridor.h" />
     <ClInclude Include="StorageIntersection.h" />
     <ClInclude Include="StorageLongCorridor.h" />
+    <ClInclude Include="StorageTurn.h" />
     <ClInclude Include="stringTools.h" />
     <ClInclude Include="StorageT_Intersection.h" />
   </ItemGroup>

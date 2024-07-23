@@ -8,22 +8,25 @@
 #include "StorageLongCorridor.h"
 #include "StorageT_Intersection.h"
 #include "StorageIntersection.h"
+#include "StorageTurn.h"
 
 
 int main()
 {
 	Coords r, p;
-	p.move(NORTH);
+	p.move(EAST);
+	p.move(EAST);
+
 	Door d;
-	d.facing = NORTH;
+	d.facing = SOUTH;
 	d.firstSide = p;
-	p.move(NORTH);
+	p.move(SOUTH);
 	d.secondSide = p;
 	d.leadingTo = nullptr;
-	RotationTypes l = STORAGE_INTERSECTION_ROTATION;
-	Room* g = new StorageIntersection(r, l, d);
+	RotationTypes l = STORAGE_TURN_FACING_SOUTH;
+	Room* g = new StorageTurn(r, l, d);
 
-	r.move(SOUTH);
+	//r.move(SOUTH);
 	std::cout << stringTools::deserializeRoom(stringTools::drawRoom(g, r));
 
 
