@@ -132,6 +132,7 @@
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="StorageCorridor.cpp" />
+    <ClCompile Include="StorageIntersection.cpp" />
     <ClCompile Include="StorageLongCorridor.cpp" />
     <ClCompile Include="stringTools.cpp" />
     <ClCompile Include="StorageT_Intersection.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="RandTools.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="StorageCorridor.h" />
+    <ClInclude Include="StorageIntersection.h" />
     <ClInclude Include="StorageLongCorridor.h" />
     <ClInclude Include="stringTools.h" />
     <ClInclude Include="StorageT_Intersection.h" />
