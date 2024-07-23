@@ -6,6 +6,7 @@
 #include "stringTools.h"
 #include "StorageCorridor.h"
 #include "StorageLongCorridor.h"
+#include "StorageT_Intersection.h"
 
 
 int main()
@@ -17,11 +18,11 @@ int main()
 	d.firstSide = r;
 	d.secondSide = p;
 	d.leadingTo = nullptr;
-	RotationTypes l = STORAGE_LONG_CORRIDOR_FACING_NORTH;
-	Room* g = new StorageLongCorridor(r, l, d);
+	RotationTypes l = STORAGE_T_INTERSECTION_FACING_SOUTH;
+	Room* g = new StorageT_Intersection(r, l, d);
 
 
-	r.move(NORTH, 3);
+	
 	std::cout << stringTools::deserializeRoom(stringTools::drawRoom(g, r));
 
 

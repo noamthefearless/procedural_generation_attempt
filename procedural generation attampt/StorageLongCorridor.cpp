@@ -21,7 +21,6 @@ vector<Coords> StorageLongCorridor::getRoomCoords() const
 {
 	vector<Coords> result;
 	Coords coord = m_root;
-	result.push_back(coord);//pushing the root
 	Directions facing;
 	switch (m_rotation)
 	{
@@ -33,9 +32,11 @@ vector<Coords> StorageLongCorridor::getRoomCoords() const
 		break;
 	default:
 		std::cerr << "debug: error occured, rotation in storage corridor" << std::endl;
+		return result;
 		break;
 	}
 
+	result.push_back(coord);//pushing the root
 	coord.move(facing);//moving and adding to the result four times. long storage corridors are 5 coordinates
 	result.push_back(coord);
 	coord.move(facing);

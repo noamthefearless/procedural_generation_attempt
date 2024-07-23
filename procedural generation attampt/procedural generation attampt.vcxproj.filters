@@ -36,6 +36,9 @@
     <ClCompile Include="StorageLongCorridor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StorageT_Intersection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandTools.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StorageLongCorridor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StorageT_Intersection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
