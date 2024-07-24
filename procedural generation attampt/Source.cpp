@@ -12,21 +12,25 @@
 #include "StorageCloset.h"
 #include "StorageSmallUnit.h"
 #include "StorageMediumUnit.h"
+#include "StorageBigUnit.h"
 
 int main()
 {
 	Coords r, p;
 
 	Door d;
-	d.facing = EAST;
+	d.facing = SOUTH;
 	d.firstSide = p;
-	p.move(EAST);
+	p.move(SOUTH);
 	d.secondSide = p;
 	d.leadingTo = nullptr;
-	RotationTypes l = STORAGE_MEDIUM_UNIT_FACING_NORTH;
-	Room* g = new StorageMediumUnit(r, l, d);
+	RotationTypes l = STORAGE_BIG_UNIT_FACING_EAST;
+	Room* g = new StorageBigUnit(r, l, d);
 
-	r.move(NORTH);
+
+	vector<Coords> corrds = g->getDoorCoords();
+
+	//r.move(NORTH);
 	std::cout << stringTools::deserializeRoom(stringTools::drawRoom(g, r));
 
 
