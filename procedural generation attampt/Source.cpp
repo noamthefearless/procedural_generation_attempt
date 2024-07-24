@@ -14,20 +14,22 @@
 #include "StorageMediumUnit.h"
 #include "StorageBigUnit.h"
 #include "StorageVehicleUnit.h"
+#include "StorageConnectedCorridors.h"
 
 int main()
 {
 	Coords r, p;
 
 	Door d;
-	p.move(NORTH, 3);
+	p.move(NORTH);
+	p.move(EAST);
 	d.facing = NORTH;
 	d.firstSide = p;
 	p.move(NORTH);
 	d.secondSide = p;
 	d.leadingTo = nullptr;
-	RotationTypes l = STORAGE_VEHICLE_UNIT_FACING_WEST;
-	Room* g = new StorageVehicleUnit(r, l, d);
+	RotationTypes l = STORAGE_CONNECTED_CORRIDORS_FACING_EAST;
+	Room* g = new StorageConnectedCorridors(r, l, d);
 
 
 	vector<Coords> corrds = g->getDoorCoords();
