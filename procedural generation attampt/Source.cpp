@@ -10,21 +10,23 @@
 #include "StorageIntersection.h"
 #include "StorageTurn.h"
 #include "StorageCloset.h"
+#include "StorageSmallUnit.h"
+#include "StorageMediumUnit.h"
 
 int main()
 {
 	Coords r, p;
 
 	Door d;
-	d.facing = NORTH;
+	d.facing = EAST;
 	d.firstSide = p;
-	p.move(NORTH);
+	p.move(EAST);
 	d.secondSide = p;
 	d.leadingTo = nullptr;
-	RotationTypes l = STORAGE_CLOSET_ROTATION;
-	Room* g = new StorageCloset(r, l, d);
+	RotationTypes l = STORAGE_MEDIUM_UNIT_FACING_NORTH;
+	Room* g = new StorageMediumUnit(r, l, d);
 
-	//r.move(SOUTH);
+	r.move(NORTH);
 	std::cout << stringTools::deserializeRoom(stringTools::drawRoom(g, r));
 
 
