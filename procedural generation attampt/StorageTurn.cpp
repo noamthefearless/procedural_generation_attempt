@@ -3,7 +3,7 @@
 default c'tor: calling c'tor of Room class
 */
 StorageTurn::StorageTurn(Coords& root, RotationTypes rotation, Door& door)
-	: Room(root, STORAGE_INTERSECTION, rotation, 4, door)
+	: Room(root, STORAGE_TURN, rotation, 2, door)
 {
 
 }
