@@ -131,15 +131,37 @@
     <ClCompile Include="RandTools.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="StorageBigUnit.cpp" />
+    <ClCompile Include="StorageConnectedCorridors.cpp" />
+    <ClCompile Include="StorageMediumUnit.cpp" />
+    <ClCompile Include="StorageCloset.cpp" />
     <ClCompile Include="StorageCorridor.cpp" />
+    <ClCompile Include="StorageIntersection.cpp" />
+    <ClCompile Include="StorageLongCorridor.cpp" />
+    <ClCompile Include="StorageSmallUnit.cpp" />
+    <ClCompile Include="StorageSquareCorridor.cpp" />
+    <ClCompile Include="StorageTurn.cpp" />
+    <ClCompile Include="StorageVehicleUnit.cpp" />
     <ClCompile Include="stringTools.cpp" />
+    <ClCompile Include="StorageT_Intersection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coords.h" />
     <ClInclude Include="RandTools.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="StorageBigUnit.h" />
+    <ClInclude Include="StorageConnectedCorridors.h" />
+    <ClInclude Include="StorageMediumUnit.h" />
+    <ClInclude Include="StorageCloset.h" />
     <ClInclude Include="StorageCorridor.h" />
+    <ClInclude Include="StorageIntersection.h" />
+    <ClInclude Include="StorageLongCorridor.h" />
+    <ClInclude Include="StorageSmallUnit.h" />
+    <ClInclude Include="StorageSquareCorridor.h" />
+    <ClInclude Include="StorageTurn.h" />
+    <ClInclude Include="StorageVehicleUnit.h" />
     <ClInclude Include="stringTools.h" />
+    <ClInclude Include="StorageT_Intersection.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,8 +4,8 @@
 /*
 default c'tor: calling c'tor of Room class
 */
-StorageCorridor::StorageCorridor(Coords& root, RoomTypes type, RotationTypes rotation, Door& door)
-	: Room(root, type, rotation, 2, door)
+StorageCorridor::StorageCorridor(Coords& root, RotationTypes rotation, Door& door)
+	: Room(root, STORAGE_CORRIDOR, rotation, 2, door)
 {
 
 }
@@ -21,7 +21,6 @@ vector<Coords> StorageCorridor::getRoomCoords() const
 {
 	vector<Coords> result;
 	Coords coord = m_root;
-	result.push_back(coord);//pushing the root
 	Directions facing;
 	switch (m_rotation)
 	{
@@ -33,26 +32,14 @@ vector<Coords> StorageCorridor::getRoomCoords() const
 		break;
 	default:
 		std::cerr << "debug: error occured, rotation in storage corridor" << std::endl;
+		return result;
 		break;
 	}
-
+	result.push_back(coord);//pushing the root
 	coord.move(facing);//moving and adding to the result twice. storage corridors are only 3 coordinates
 	result.push_back(coord);
 	coord.move(facing);
 	result.push_back(coord);
-	
-	//coord.move(WEST);
-	//result.push_back(coord);
-	//coord.move(WEST);
-	//result.push_back(coord);
-	//coord.move(SOUTH);
-	//result.push_back(coord);
-	//coord.move(SOUTH);
-	//result.push_back(coord);
-	//coord.move(EAST);
-	//result.push_back(coord);
-
-
 
 	return result;
 }

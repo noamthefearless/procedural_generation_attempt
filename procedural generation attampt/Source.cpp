@@ -5,24 +5,34 @@
 #include "Room.h"
 #include "stringTools.h"
 #include "StorageCorridor.h"
+#include "StorageLongCorridor.h"
+#include "StorageT_Intersection.h"
+#include "StorageIntersection.h"
+#include "StorageTurn.h"
+#include "StorageCloset.h"
+#include "StorageSmallUnit.h"
+#include "StorageMediumUnit.h"
+#include "StorageBigUnit.h"
+#include "StorageVehicleUnit.h"
+#include "StorageConnectedCorridors.h"
+#include "StorageSquareCorridor.h"
 
 
 int main()
 {
 	Coords r, p;
-	p.move(SOUTH);
+
 	Door d;
-	d.facing = SOUTH;
-	d.firstSide = r;
+	d.facing = WEST;
+	d.firstSide = p;
+	p.move(WEST);
 	d.secondSide = p;
 	d.leadingTo = nullptr;
-	int a = 2;
-	RoomTypes u = STORAGE_LONG_CORRIDOR;
-	RotationTypes l = STORAGE_CORRIDOR_FACING_EAST;
-	Room* g = new StorageCorridor(r, u, l, d);
+	RotationTypes l = STORAGE_SQUARE_CORRIDOR_ROTATION;
+	Room* g = new StorageSquareCorridor(r, l, d);
+	vector<Coords> corrds = g->getDoorCoords();
 
-
-	r.move(EAST);
+	r.move(NORTH);
 	std::cout << stringTools::deserializeRoom(stringTools::drawRoom(g, r));
 
 
