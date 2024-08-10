@@ -81,6 +81,26 @@ vector<Door> Room::getDoorsOfCoord(Coords coord) const
 
 
 /*
+setRoomToNullDoor: this funciton will set a lead value of a new room to a nulldoor
+input: the door with the updated leadingTo val
+output: non
+*/
+void Room::setRoomToNullDoor(Door& door)
+{
+	for (int i = 0; i < m_doors.size(); i++)
+	{
+		//checking if the doors are identical, and if the current one is a nulldoor
+		if (m_doors[i].firstSide == door.firstSide && m_doors[i].secondSide == door.secondSide && m_doors[i].facing == door.facing && m_doors[i].leadingTo == nullptr)
+		{
+			m_doors[i].leadingTo = door.leadingTo;
+			return;
+		}
+	}
+}
+
+
+
+/*
 addDoor: this function will set a new door
 input: the door
 output: non
@@ -98,6 +118,18 @@ output: the root coords
 Coords Room::getRoot() const
 {
 	return m_root;
+}
+
+
+/*
+searchRoom: this function will search for a room with the findRoomUsingCoord helper function
+input: the coord to search for
+output: the room if exists
+*/
+Room* Room::searchRoom(Coords coord)
+{
+	std::unordered_set<Room*> visitedRooms;
+	return findRoomUsingCoord(coord, visitedRooms);
 }
 
 
@@ -144,6 +176,52 @@ vector<Door> Room::getDoors() const
 {
 	return m_doors;
 }
+
+
+
+
+
+
+
+/*
+findRoomUsingCoord: this function will search for a room recursivly
+input: the coord to look in and the room that are already visited in previous itterations
+output: the room ptr or nullptr if not found
+*/
+Room* Room::findRoomUsingCoord(Coords coord, std::unordered_set<Room*>& visitedRooms)
+{
+	Room* result;
+	if (visitedRooms.find(this) != visitedRooms.end())// if already visited
+	{
+		return nullptr;
+	}
+
+	visitedRooms.insert(this);// not visited yet, so this room needs to be inserted
+
+	if (isCoordInRoom(coord))// this is the correct room
+	{
+		return this;
+	}
+
+	for (auto itt : m_doors)
+	{
+		if (itt.leadingTo != nullptr)// if the door leads somewhere
+		{
+			result = itt.leadingTo->findRoomUsingCoord(coord, visitedRooms);//search there too
+			if (result != nullptr)// if the true result has been returned then pass it along
+			{
+				return result;
+			}
+
+		}
+
+	}
+
+	return nullptr;//nothing was found...
+}
+
+
+
 
 
 

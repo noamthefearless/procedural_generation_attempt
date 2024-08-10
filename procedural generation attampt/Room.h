@@ -2,6 +2,7 @@
 #include "Coords.h"
 #include <vector>
 #include <string>
+#include <unordered_set>
 using std::string;
 using std::vector;
 
@@ -49,6 +50,9 @@ public:
 	void addDoor(Door& door);
 	bool isDoorCoord(Coords coord) const;
 	vector<Door> getDoorsOfCoord(Coords coord) const;
+	Room* searchRoom(Coords coord);
+	void setRoomToNullDoor(Door& door);
+
 
 	virtual vector<Coords> getRoomCoords() const = 0;
 	virtual vector<Coords> getDoorCoords() const = 0;
@@ -63,6 +67,7 @@ public:
 
 protected:
 
+	Room* findRoomUsingCoord(Coords coord, std::unordered_set<Room*>& visitedRooms);
 
 	Coords m_root;
 	RoomTypes m_type;

@@ -144,6 +144,7 @@
     <ClCompile Include="StorageVehicleUnit.cpp" />
     <ClCompile Include="stringTools.cpp" />
     <ClCompile Include="StorageT_Intersection.cpp" />
+    <ClCompile Include="WorldGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coords.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="StorageVehicleUnit.h" />
     <ClInclude Include="stringTools.h" />
     <ClInclude Include="StorageT_Intersection.h" />
+    <ClInclude Include="WorldGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
