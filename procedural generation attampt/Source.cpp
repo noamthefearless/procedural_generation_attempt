@@ -1,27 +1,11 @@
-#include "RandTools.h"
+#include "WorldGenerator.h"
 #include <iostream>
-#include "Coords.h"
-#include <vector>
-#include "Room.h"
-#include "stringTools.h"
-#include "StorageCorridor.h"
-#include "StorageLongCorridor.h"
-#include "StorageT_Intersection.h"
-#include "StorageIntersection.h"
-#include "StorageTurn.h"
-#include "StorageCloset.h"
-#include "StorageSmallUnit.h"
-#include "StorageMediumUnit.h"
-#include "StorageBigUnit.h"
-#include "StorageVehicleUnit.h"
-#include "StorageConnectedCorridors.h"
-#include "StorageSquareCorridor.h"
 
 
 int main()
 {
 	Coords r, p;
-
+	WorldGenerator w(20202);
 	Door d, b;
 	p.move(NORTH, 2);
 	d.facing = EAST;
@@ -30,7 +14,7 @@ int main()
 	d.secondSide = p;
 	d.leadingTo = nullptr;
 	RotationTypes l = STORAGE_CORRIDOR_FACING_NORTH;
-	Room* g = new StorageCorridor(r, l, d), *k;
+	Room* g = new StorageCorridor(r, l, d), *k, *u;
 	//vector<Coords> corrds = g->getDoorCoords();
 
 	r.move(NORTH);
@@ -71,9 +55,8 @@ int main()
 	p.move(NORTH);
 	std::cout << stringTools::deserializeRoom(stringTools::drawRoom(g->searchRoom(p), p));
 
-	delete g->searchRoom(p);
-	delete g;
-	delete k;
+	w.m_RoomRoot = g;
+
 	return 0;
 }
 

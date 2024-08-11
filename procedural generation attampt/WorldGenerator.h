@@ -21,13 +21,21 @@
 class WorldGenerator
 {
 public:
+	WorldGenerator(unsigned long long seed);
+	~WorldGenerator();
+
+
 	Room* getRootRoom() const;
 
 
 
 
 //private:  (for now everything will be public for debugging purpouses)
+
 	bool isRoomInCollision(Room* room);
-	Room* m_RoomRoot;
+	void clearRooms(Room* currentRoom, std::unordered_set<Room*>& visitedRooms);
+
+
+	Room* m_RoomRoot = nullptr;
 };
 
