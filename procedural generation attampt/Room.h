@@ -50,7 +50,7 @@ public:
 	void addDoor(Door& door);
 	bool isDoorCoord(Coords coord) const;
 	vector<Door> getDoorsOfCoord(Coords coord) const;
-	Room* searchRoom(Coords coord);
+	Room* searchRoom(Coords& coord);
 	void setRoomToNullDoor(Door& door);
 
 
@@ -67,7 +67,7 @@ public:
 
 protected:
 
-	Room* findRoomUsingCoord(Coords coord, std::unordered_set<Room*>& visitedRooms);
+	Room* findRoomUsingCoord(Coords& coord, std::unordered_set<Room*>& visitedRooms);
 
 	Coords m_root;
 	RoomTypes m_type;

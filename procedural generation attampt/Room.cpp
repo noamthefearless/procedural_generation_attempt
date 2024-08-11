@@ -126,7 +126,7 @@ searchRoom: this function will search for a room with the findRoomUsingCoord hel
 input: the coord to search for
 output: the room if exists
 */
-Room* Room::searchRoom(Coords coord)
+Room* Room::searchRoom(Coords& coord)
 {
 	std::unordered_set<Room*> visitedRooms;
 	return findRoomUsingCoord(coord, visitedRooms);
@@ -188,7 +188,7 @@ findRoomUsingCoord: this function will search for a room recursivly
 input: the coord to look in and the room that are already visited in previous itterations
 output: the room ptr or nullptr if not found
 */
-Room* Room::findRoomUsingCoord(Coords coord, std::unordered_set<Room*>& visitedRooms)
+Room* Room::findRoomUsingCoord(Coords& coord, std::unordered_set<Room*>& visitedRooms)
 {
 	Room* result;
 	if (visitedRooms.find(this) != visitedRooms.end())// if already visited

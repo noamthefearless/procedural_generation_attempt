@@ -14,10 +14,10 @@ int main()
 	d.secondSide = p;
 	d.leadingTo = nullptr;
 	RotationTypes l = STORAGE_CORRIDOR_FACING_NORTH;
-	Room* g = new StorageCorridor(r, l, d), *k, *u;
+	Room* g = new StorageCorridor(r, l, d), *k, *u, *m;
 	//vector<Coords> corrds = g->getDoorCoords();
 
-	r.move(NORTH);
+
 
 
 	b.firstSide = d.secondSide;
@@ -45,9 +45,9 @@ int main()
 	k->addDoor(b);
 
 
-	
 
-	std::cout << stringTools::deserializeRoom(stringTools::drawRoom(g, r));
+
+
 	p.move(SOUTH);
 	std::cout << stringTools::deserializeRoom(stringTools::drawRoom(g->searchRoom(p), p));
 
@@ -56,6 +56,22 @@ int main()
 	std::cout << stringTools::deserializeRoom(stringTools::drawRoom(g->searchRoom(p), p));
 
 	w.m_RoomRoot = g;
+
+	r.move(WEST);
+	b.facing = WEST;
+	b.firstSide = r;
+	r.move(WEST);
+	b.secondSide = r;
+	r.move(EAST);
+	b.leadingTo = nullptr;
+
+	m = new StorageCorridor(r, STORAGE_CORRIDOR_FACING_EAST, b);
+	if (w.isRoomInCollision(m))
+	{
+		std::cout << stringTools::deserializeRoom(stringTools::drawRoom(g->searchRoom(p), p));
+	}
+
+	delete m;
 
 	return 0;
 }
