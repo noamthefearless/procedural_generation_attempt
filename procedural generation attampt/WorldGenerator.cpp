@@ -72,6 +72,51 @@ void WorldGenerator::setLineOfCoordsInRow(Coords& starterCoord, vector<Coords>& 
 
 
 
+/*
+getPossibleRootCoords: this function will return the possible root locations when placing a new room
+input: the coord and the direction from the null door
+output: a random vector with all possible locations
+*/
+vector<Coords> WorldGenerator::getPossibleRootCoords(Coords coord, Directions doorDirection)
+{
+	vector<Coords> result;
+	Coords temp;
+	Directions lineDirection;
+	switch (doorDirection)// getting the right direction
+	{
+	case NORTH:
+		lineDirection = EAST;
+		break;
+	case SOUTH:
+		lineDirection = WEST;
+		break;
+	case WEST:
+		lineDirection = NORTH;
+		break;
+	case EAST:
+		lineDirection = SOUTH;
+		break;
+	default:
+		break;
+	}
+	coord.move(lineDirection, -2);// going to the starter coord
+	coord.move(doorDirection, -2);
+	temp = coord;
+
+	for (int i = 0; i < 5; i++)
+	{
+		coord = temp;
+		coord.move(lineDirection, i);
+		setLineOfCoordsInRow(coord, result, doorDirection, 7);// getting all possible locations within a 7x5 square
+	}
+	return RandTools::randomizeCoordsVec(result);//random order
+}
+
+
+
+
+
+
 
 /*
 getRandomizedRotatinTypes: this function will return a vector with the rotation of the room type in a random order
