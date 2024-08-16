@@ -34,6 +34,9 @@ public:
 
 	bool isRoomInCollision(Room* room);
 	void clearRooms(Room* currentRoom, std::unordered_set<Room*>& visitedRooms);
+	vector<RoomTypes> getRandomizedRoomTypes();
+	vector<RotationTypes> getRandomizedRotatinTypes(RoomTypes roomType);
+	void setLineOfCoordsInRow(Coords& starterCoord, vector<Coords>& line, Directions direction, int n);
 
 
 	Room* m_RoomRoot = nullptr;

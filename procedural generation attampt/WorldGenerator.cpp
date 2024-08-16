@@ -36,6 +36,116 @@ WorldGenerator::~WorldGenerator()
 
 
 
+/*
+getRandomizedRoomTypes: this function will return a random vector of room tpyes
+input: non
+output: a random vector
+*/
+vector<RoomTypes> WorldGenerator::getRandomizedRoomTypes()
+{
+	vector<RoomTypes> result;
+	for (int i = 0; i < 12; i++)
+	{
+		result.push_back((RoomTypes)i);// putting all types in a vec
+	}
+	return RandTools::randomizeRoomTypesVec(result);// randomizing
+}
+
+
+
+/*
+setLineOfCoordsInRow: this function will set an n number of coords in a line facing a certien direction in a vector
+input: the coord, vector, direction of line and number of nodes in the line
+output: non
+*/
+void WorldGenerator::setLineOfCoordsInRow(Coords& starterCoord, vector<Coords>& line, Directions direction, int n)
+{
+	while (n > 0)
+	{
+		line.push_back(starterCoord);
+		starterCoord.move(direction);//going in direction
+		n -= 1;
+	}
+	return;
+}
+
+
+
+
+
+/*
+getRandomizedRotatinTypes: this function will return a vector with the rotation of the room type in a random order
+input: the type
+output: the vector
+*/
+vector<RotationTypes> WorldGenerator::getRandomizedRotatinTypes(RoomTypes roomType)
+{
+	vector<RotationTypes> result;
+	switch (roomType)
+	{
+	case STORAGE_CORRIDOR:
+		result.push_back(STORAGE_CORRIDOR_FACING_NORTH);//pushing the correct enums
+		result.push_back(STORAGE_CORRIDOR_FACING_EAST);
+		break;
+	case STORAGE_LONG_CORRIDOR:
+		result.push_back(STORAGE_LONG_CORRIDOR_FACING_NORTH);
+		result.push_back(STORAGE_LONG_CORRIDOR_FACING_EAST);
+		break;
+	case STORAGE_T_INTERSECTION:
+		result.push_back(STORAGE_T_INTERSECTION_FACING_NORTH);
+		result.push_back(STORAGE_T_INTERSECTION_FACING_EAST);
+		result.push_back(STORAGE_T_INTERSECTION_FACING_SOUTH);
+		result.push_back(STORAGE_T_INTERSECTION_FACING_WEST);
+		break;
+	case STORAGE_INTERSECTION:
+		result.push_back(STORAGE_INTERSECTION_ROTATION);
+		break;
+	case STORAGE_TURN:
+		result.push_back(STORAGE_TURN_FACING_NORTH);
+		result.push_back(STORAGE_TURN_FACING_EAST);
+		result.push_back(STORAGE_TURN_FACING_SOUTH);
+		result.push_back(STORAGE_TURN_FACING_WEST);
+		break;
+	case STORAGE_CLOSET:
+		result.push_back(STORAGE_CLOSET_ROTATION);
+		break;
+	case STORAGE_SMALL_UNIT:
+		result.push_back(STORAGE_SMALL_UNIT_ROTATION);
+		break;
+	case STORAGE_MEDIUM_UNIT:
+		result.push_back(STORAGE_MEDIUM_UNIT_FACING_NORTH);
+		result.push_back(STORAGE_MEDIUM_UNIT_FACING_EAST);
+		break;
+	case STORAGE_BIG_UNIT:
+		result.push_back(STORAGE_BIG_UNIT_FACING_NORTH);
+		result.push_back(STORAGE_BIG_UNIT_FACING_EAST);
+		break;
+	case STORAGE_VEHICLE_UNIT:
+		result.push_back(STORAGE_VEHICLE_UNIT_FACING_NORTH);
+		result.push_back(STORAGE_VEHICLE_UNIT_FACING_EAST);
+		result.push_back(STORAGE_VEHICLE_UNIT_FACING_SOUTH);
+		result.push_back(STORAGE_VEHICLE_UNIT_FACING_WEST);
+		break;
+	case STORAGE_CONNECTED_CORRIDORS:
+		result.push_back(STORAGE_CONNECTED_CORRIDORS_FACING_NORTH);
+		result.push_back(STORAGE_CONNECTED_CORRIDORS_FACING_EAST);
+		break;
+	case STORAGE_SQUARE_CORRIDOR:	
+		result.push_back(STORAGE_SQUARE_CORRIDOR_ROTATION);
+		break;
+	default:
+		break;
+	}
+	return RandTools::randomizeRotationTypesVec(result);// randomizing and returning the vector
+}
+
+
+
+
+
+
+
+
 
 /*
 isRoomInCollision: this function will check if a room is in collision with other rooms with the coords
