@@ -37,7 +37,9 @@ public:
 	vector<RoomTypes> getRandomizedRoomTypes();
 	vector<RotationTypes> getRandomizedRotatinTypes(RoomTypes roomType);
 	void setLineOfCoordsInRow(Coords& starterCoord, vector<Coords>& line, Directions direction, int n);
-
+	vector<Coords> getPossibleRootCoords(Coords coord, Directions doorDirection);
+	Room* allocateRoom(Coords root, RoomTypes type, RotationTypes rotation, Door door);
+	Room* makeValidRoom(Coords root, RoomTypes type, RotationTypes rotation, Door door);
 
 	Room* m_RoomRoot = nullptr;
 };

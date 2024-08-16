@@ -34,6 +34,51 @@ WorldGenerator::~WorldGenerator()
 }
 
 
+/*
+getOppositeDirection: this function will get a direction and return the inverse
+input: the direction
+output: the opposite direction
+*/
+Directions WorldGenerator::getOppositeDirection(Directions direction)
+{
+	switch (direction)
+	{
+	case NORTH:// returning the opposite
+		break;
+		return SOUTH;
+	case SOUTH:
+		return NORTH;
+		break;
+	case WEST:
+		return EAST;
+		break;
+	case EAST:
+		return WEST;
+		break;
+	default:
+		break;
+	}
+	return direction;
+}
+
+
+/*
+getOppositeDoor: this function will return the opposite door from the one in the input
+input: the door and the room of the door
+output: the inverse door
+*/
+Door WorldGenerator::getOppositeDoor(Room* room, Door door)
+{
+	Coords temp;
+	door.firstSide = temp;
+	door.firstSide = door.secondSide;// switching the coords
+	door.secondSide = temp;
+
+	door.facing = getOppositeDirection(door.facing);// setting the opposite direction, and the leading to the room
+	door.leadingTo = room;
+	return door;
+}
+
 
 
 /*
@@ -45,7 +90,7 @@ vector<RoomTypes> WorldGenerator::getRandomizedRoomTypes()
 {
 	vector<RoomTypes> result;
 	for (int i = 0; i < 12; i++)
-	{
+	{s
 		result.push_back((RoomTypes)i);// putting all types in a vec
 	}
 	return RandTools::randomizeRoomTypesVec(result);// randomizing
@@ -68,6 +113,61 @@ void WorldGenerator::setLineOfCoordsInRow(Coords& starterCoord, vector<Coords>& 
 	}
 	return;
 }
+
+/*
+allocateRoom: this function will allocate a room according to the type
+input: the root, type and rotation and also the door
+output: the room ptr
+*/
+Room* WorldGenerator::allocateRoom(Coords root, RoomTypes type, RotationTypes rotation, Door door)
+{
+	Room* result = nullptr;
+	switch (type)//switching to type
+	{
+	case STORAGE_CORRIDOR:
+		result = new StorageCorridor(root, rotation, door);
+		break;
+	case STORAGE_LONG_CORRIDOR:
+		result = new StorageLongCorridor(root, rotation, door);
+		break;
+	case STORAGE_T_INTERSECTION:
+		result = new StorageT_Intersection(root, rotation, door);
+		break;
+	case STORAGE_INTERSECTION:
+		result = new StorageIntersection(root, rotation, door);
+		break;
+	case STORAGE_TURN:
+		result = new StorageTurn(root, rotation, door);
+		break;
+	case STORAGE_CLOSET:
+		result = new StorageCloset(root, rotation, door);
+		break;
+	case STORAGE_SMALL_UNIT:
+		result = new StorageSmallUnit(root, rotation, door);
+		break;
+	case STORAGE_MEDIUM_UNIT:
+		result = new StorageMediumUnit(root, rotation, door);
+		break;
+	case STORAGE_BIG_UNIT:
+		result = new StorageBigUnit(root, rotation, door);
+		break;
+	case STORAGE_VEHICLE_UNIT:
+		result = new StorageVehicleUnit(root, rotation, door);
+		break;
+	case STORAGE_CONNECTED_CORRIDORS:
+		result = new StorageConnectedCorridors(root, rotation, door);
+		break;
+	case STORAGE_SQUARE_CORRIDOR:
+		result = new StorageSquareCorridor(root, rotation, door);
+		break;
+	default:
+		break;
+	}
+	return result;
+}
+
+
+
 
 
 
