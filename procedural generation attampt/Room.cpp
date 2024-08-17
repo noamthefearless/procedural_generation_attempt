@@ -121,6 +121,34 @@ Coords Room::getRoot() const
 }
 
 
+
+
+/*
+isDoorExists: this function will check if a door exists
+input: the coord, and the direction of the door
+output: a bool with true if exists
+*/
+bool Room::isDoorExists(Coords doorCoord, Directions facing)
+{
+	vector<Coords> doorCoords = getDoorCoords();
+	vector<Door> doors = getDoors();
+	if (std::find(doorCoords.begin(), doorCoords.end(), doorCoord) == doorCoords.end())// checking if the coord is eve a door coord
+	{
+		return false;
+	}
+
+	for (auto itt : doors)// going through the doors
+	{
+		if (itt.firstSide == doorCoord && itt.facing == facing)// if on the same coord and facing the same way
+		{
+			return true;//then exists
+		}
+	}
+	return false;
+}
+
+
+
 /*
 searchRoom: this function will search for a room with the findRoomUsingCoord helper function
 input: the coord to search for
