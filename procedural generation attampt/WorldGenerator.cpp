@@ -90,11 +90,89 @@ vector<RoomTypes> WorldGenerator::getRandomizedRoomTypes()
 {
 	vector<RoomTypes> result;
 	for (int i = 0; i < 12; i++)
-	{s
+	{
 		result.push_back((RoomTypes)i);// putting all types in a vec
 	}
 	return RandTools::randomizeRoomTypesVec(result);// randomizing
 }
+
+
+
+
+/*
+makeValidRoom:this function will create a specific room if possible
+input: the void coord, the type and rotation as well as the opposite door of the void door
+output: a room ptr, if a room was made, and null if not
+*/
+Room* WorldGenerator::makeValidRoom(Coords voidCoord, RoomTypes type, RotationTypes rotation, Door door)
+{
+	Room* result;
+	vector<Coords> rootCoords = getPossibleRootCoords(voidCoord, getOppositeDirection(door.facing));// getting all possible roots
+
+	for (auto itt : rootCoords)
+	{
+		result = allocateRoom(itt, type, rotation, door);// making demo room
+		if (isRoomInCollision(result) == false && result->isDoorCoord(voidCoord))// if the void coord is a door coord, or the room is not in collision
+		{
+			return result;// this room is valid
+		}
+
+		delete result;//if not delete it and try again
+
+
+	}
+	return nullptr;// if not one option worked, return nullptr
+}
+
+
+/*
+makeValidRotation: this function will check every rotation for the specific room type
+input: the void coord, type, and door
+output: a new room ptr if success, and nullptr if not
+*/
+Room* WorldGenerator::makeValidRotation(Coords voidCoord, RoomTypes type, Door door)
+{
+	Room* result;
+	vector<RotationTypes> rotations = getRandomizedRotatinTypes(type);// getting all rotations randomized
+	for (auto itt : rotations)
+	{
+		result = makeValidRoom(voidCoord, type, itt, door);// checking validity
+		if (result != nullptr)
+		{
+			return result;// if valid
+		}
+	}
+	return nullptr;// non were valid
+}
+
+
+
+/*
+makeValidType: this function will create a room and return it
+input : the void coord and the door of the new room 
+output: the new room
+*/
+Room* WorldGenerator::makeValidType(Coords voidCoord, Door door)
+{
+	Room* result;
+	vector<RoomTypes> types = getRandomizedRoomTypes();// getting all types randomized
+	for (auto itt : types)
+	{
+		if (itt == STORAGE_CLOSET)// if closet then there is no reason to continue
+		{
+			result = new StorageCloset(voidCoord, STORAGE_CLOSET_ROTATION, door);
+			return result;
+		}
+		result = makeValidRotation(voidCoord, itt, door);// checking validity
+		if (result != nullptr)
+		{
+			return result;// if valid
+		}
+	}
+	return nullptr;// non were valid
+}
+
+
 
 
 

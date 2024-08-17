@@ -39,7 +39,12 @@ public:
 	void setLineOfCoordsInRow(Coords& starterCoord, vector<Coords>& line, Directions direction, int n);
 	vector<Coords> getPossibleRootCoords(Coords coord, Directions doorDirection);
 	Room* allocateRoom(Coords root, RoomTypes type, RotationTypes rotation, Door door);
-	Room* makeValidRoom(Coords root, RoomTypes type, RotationTypes rotation, Door door);
+	Door getOppositeDoor(Room* room, Door door);
+	Directions getOppositeDirection(Directions direction);
+	Room* makeValidRoom(Coords voidCoord, RoomTypes type, RotationTypes rotation, Door door);
+	Room* makeValidRotation(Coords voidCoord, RoomTypes type, Door door);
+	Room* makeValidType(Coords voidCoord, Door door);
+
 
 	Room* m_RoomRoot = nullptr;
 };
