@@ -142,7 +142,7 @@
     <ClCompile Include="StorageSquareCorridor.cpp" />
     <ClCompile Include="StorageTurn.cpp" />
     <ClCompile Include="StorageVehicleUnit.cpp" />
-    <ClCompile Include="stringTools.cpp" />
+    <ClCompile Include="StringTools.cpp" />
     <ClCompile Include="StorageT_Intersection.cpp" />
     <ClCompile Include="WorldGenerator.cpp" />
   </ItemGroup>
@@ -161,7 +161,7 @@
     <ClInclude Include="StorageSquareCorridor.h" />
     <ClInclude Include="StorageTurn.h" />
     <ClInclude Include="StorageVehicleUnit.h" />
-    <ClInclude Include="stringTools.h" />
+    <ClInclude Include="StringTools.h" />
     <ClInclude Include="StorageT_Intersection.h" />
     <ClInclude Include="WorldGenerator.h" />
   </ItemGroup>

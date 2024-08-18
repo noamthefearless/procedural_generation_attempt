@@ -8,7 +8,7 @@
 using std::vector;
 using std::map;
 using std::string;
-class stringTools
+class StringTools
 {
 public:
 	static vector<string> serializeRoom(string room);

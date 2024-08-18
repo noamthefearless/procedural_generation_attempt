@@ -8,7 +8,7 @@ sereallizeRoom: this function will turn a string room into a vector of lines
 input: the room in string format
 output: the ser
 */
-vector<string> stringTools::serializeRoom(string room)
+vector<string> StringTools::serializeRoom(string room)
 {
 	vector<string> result;
 	string itt = "";
@@ -38,7 +38,7 @@ desereallizeRoom: this function will turn a vector room into string format
 input: the room in vector format
 output: string room
 */
-string stringTools::deserializeRoom(vector<string> room)
+string StringTools::deserializeRoom(vector<string> room)
 {
 	string result = "";
 	for (auto itt : room)
@@ -58,7 +58,7 @@ isWallThere: this function will check if a ceriten coord is the edge of a room f
 input: the coord, room and the directions
 output: a bool;
 */
-bool stringTools::isWallThere(Coords coord, Room* coordRoom, Directions direction)
+bool StringTools::isWallThere(Coords coord, Room* coordRoom, Directions direction)
 {
 	coord.move(direction);
 	return !(coordRoom->isCoordInRoom(coord));
@@ -70,7 +70,7 @@ drawCoord: this function will draw one coord of a room
 input: the coord and the room ptr
 output: a seriallized string format
 */
-vector<string> stringTools::drawCoord(Coords coord, Room* coordRoom, bool isWalker)
+vector<string> StringTools::drawCoord(Coords coord, Room* coordRoom, bool isWalker)
 {
 	vector<string> result;
 	vector<Coords> sameLineCoords;
@@ -135,7 +135,7 @@ vector<string> stringTools::drawCoord(Coords coord, Room* coordRoom, bool isWalk
 
 
 	//edit values for doors
-	result = stringTools::addCoordDoors(coord, coordRoom, result);
+	result = StringTools::addCoordDoors(coord, coordRoom, result);
 	if (isWalker)
 	{
 		result[3][6] = '*';
@@ -153,9 +153,9 @@ vector<string> stringTools::drawCoord(Coords coord, Room* coordRoom, bool isWalk
 
 	if (isLeftWall)
 	{
-		if (coord.getCoords().z == stringTools::getMostLeftCoord(sameLineCoords).getCoords().z)// adding ghost coords accordingly
+		if (coord.getCoords().z == StringTools::getMostLeftCoord(sameLineCoords).getCoords().z)// adding ghost coords accordingly
 		{
-			result = stringTools::addingGhostCoords(result, coord.getCoords().z - stringTools::getMostLeftCoord(coordRoom->getRoomCoords()).getCoords().z);
+			result = StringTools::addingGhostCoords(result, coord.getCoords().z - StringTools::getMostLeftCoord(coordRoom->getRoomCoords()).getCoords().z);
 		}
 		else
 		{
@@ -164,7 +164,7 @@ vector<string> stringTools::drawCoord(Coords coord, Room* coordRoom, bool isWalk
 				counterCoord.move(WEST);//looking for last place in room to the left
 				ghostCoordCount++;
 			} while (coordRoom->isCoordInRoom(counterCoord) == false);
-			result = stringTools::addingGhostCoords(result,ghostCoordCount - 1);//its also counting the coord itself
+			result = StringTools::addingGhostCoords(result,ghostCoordCount - 1);//its also counting the coord itself
 		}
 	}
 
@@ -180,7 +180,7 @@ getMostLeftCoord: this function will find the most left coord and return it
 input: the vector of coords
 output: the far left coord
 */
-Coords stringTools::getMostLeftCoord(vector<Coords> vec)
+Coords StringTools::getMostLeftCoord(vector<Coords> vec)
 {
 	Coords result;
 	if (vec.size() < 1)
@@ -206,7 +206,7 @@ addCoordDoors: this function will add doors to a coord in seriallized form
 input: the coord, the room and the seriallized room string
 output: the new room string with the doors
 */
-vector<string> stringTools::addCoordDoors(Coords coord, Room* Room, vector<string> vecStr)
+vector<string> StringTools::addCoordDoors(Coords coord, Room* Room, vector<string> vecStr)
 {
 	vector<Door> doorsInCoord = Room->getDoorsOfCoord(coord);//getting all of the doors in this coord
 	for (auto itt : doorsInCoord)
@@ -232,7 +232,7 @@ addingGhostCoords: this function will add a set number of ghost coords to a serr
 input: the vector and the number of ghost coords
 output: the new vector
 */
-vector<string> stringTools::addingGhostCoords(vector<string> vec, int n)
+vector<string> StringTools::addingGhostCoords(vector<string> vec, int n)
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -259,7 +259,7 @@ drawRoom: this function will make a snapshot of a room
 input: the room ptr
 output: a seriallized string of the room pic
 */
-vector<string> stringTools::drawRoom(Room* Room, Coords walkerCoord)
+vector<string> StringTools::drawRoom(Room* Room, Coords walkerCoord)
 {
 	vector<Coords> coords = Room->getRoomCoords();// getting coords
 	vector<vector<string>> roomPieces;
@@ -283,7 +283,7 @@ vector<string> stringTools::drawRoom(Room* Room, Coords walkerCoord)
 	{
 		if(coords[i].getCoords().x == currentXval)// the way it works is adding the vectors on the same X level
 		{
-			temp = stringTools::connectSeriallizedStrings(temp, roomPieces[i]);
+			temp = StringTools::connectSeriallizedStrings(temp, roomPieces[i]);
 		}
 		else// if the X level changes, we have 1 layer, and we push it and go to the next layer
 		{
@@ -298,7 +298,7 @@ vector<string> stringTools::drawRoom(Room* Room, Coords walkerCoord)
 
 
 
-	return stringTools::cleanUpRoomStr(result);
+	return StringTools::cleanUpRoomStr(result);
 	//return result;
 }
 
@@ -309,7 +309,7 @@ cleanUpRoomStr: this function will clean UP a room str and make it look better
 input: the seriallized string of the room
 output: the room after the cleanup
 */
-vector<string> stringTools::cleanUpRoomStr(vector<string> roomStr)
+vector<string> StringTools::cleanUpRoomStr(vector<string> roomStr)
 {
 	int maxStrSize = roomStr[0].size();
 	for (int i = 0; i < roomStr.size(); i++)// finding the maximum size of a row in the room
@@ -386,7 +386,7 @@ connectSeriallizedStrings: this function will connect 2 string vectors of the sa
 input: the 2 string vectors
 output: the connected vector
 */
-vector<string> stringTools::connectSeriallizedStrings(vector<string> s1, vector<string> s2)
+vector<string> StringTools::connectSeriallizedStrings(vector<string> s1, vector<string> s2)
 {
 	int size = s1.size();
 	if (s1.size() > s2.size())//if noit same size
@@ -412,7 +412,7 @@ makeAsciiRoom: this function will make a room in ascii
 input: the width and height of the room
 ouptut: the room as an Ascii string
 */
-string stringTools::makeAsciiRoom(int width, int height)
+string StringTools::makeAsciiRoom(int width, int height)
 {
 	string result = "";
 	int temp = 0;

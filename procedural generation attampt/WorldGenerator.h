@@ -44,6 +44,10 @@ public:
 	Room* makeValidRoom(Coords voidCoord, RoomTypes type, RotationTypes rotation, Door door);
 	Room* makeValidRotation(Coords voidCoord, RoomTypes type, Door door);
 	Room* makeValidType(Coords voidCoord, Door door);
+	vector<Directions> getFourDirectionsInRandomOreder();
+	bool addNewDoorToRoomIfPossible(Room* room);
+
+
 
 
 	Room* m_RoomRoot = nullptr;

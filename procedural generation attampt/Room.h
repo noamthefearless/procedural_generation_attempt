@@ -52,6 +52,7 @@ public:
 	vector<Door> getDoorsOfCoord(Coords coord) const;
 	Room* searchRoom(Coords& coord);
 	void setRoomToNullDoor(Door& door);
+	bool isDoorExists(Coords doorCoord, Directions facing);
 
 
 	virtual vector<Coords> getRoomCoords() const = 0;

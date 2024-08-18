@@ -41,22 +41,21 @@ output: the opposite direction
 */
 Directions WorldGenerator::getOppositeDirection(Directions direction)
 {
-	switch (direction)
+	if (direction == NORTH)
 	{
-	case NORTH:// returning the opposite
-		break;
 		return SOUTH;
-	case SOUTH:
+	}
+	if (direction == SOUTH)
+	{
 		return NORTH;
-		break;
-	case WEST:
-		return EAST;
-		break;
-	case EAST:
+	}
+	if (direction == EAST)
+	{
 		return WEST;
-		break;
-	default:
-		break;
+	}
+	if (direction == WEST)
+	{
+		return EAST;
 	}
 	return direction;
 }
@@ -70,7 +69,7 @@ output: the inverse door
 Door WorldGenerator::getOppositeDoor(Room* room, Door door)
 {
 	Coords temp;
-	door.firstSide = temp;
+	temp = door.firstSide;
 	door.firstSide = door.secondSide;// switching the coords
 	door.secondSide = temp;
 
@@ -171,6 +170,87 @@ Room* WorldGenerator::makeValidType(Coords voidCoord, Door door)
 	}
 	return nullptr;// non were valid
 }
+
+
+
+/*
+getFourDirectionsInRandomOreder: this function will simply return all 4 directions in a random order
+input: non
+output: a vector with 4 directions in a random order
+*/
+vector<Directions> WorldGenerator::getFourDirectionsInRandomOreder()
+{
+	vector<Directions> directionsUnsorted, result;
+	int index = 0;
+	directionsUnsorted.push_back(NORTH);// pushoin all 4 directions
+	directionsUnsorted.push_back(SOUTH);
+	directionsUnsorted.push_back(EAST);
+	directionsUnsorted.push_back(WEST);
+
+
+	while (directionsUnsorted.size() > 0)
+	{
+		index = RandTools::getRandomVal(0, directionsUnsorted.size() - 1);// getting direction
+		result.push_back(directionsUnsorted[index]);//pushing
+		directionsUnsorted.erase(directionsUnsorted.begin() + index);//and erasing for next itteration
+	}
+	return result;
+}
+
+
+
+
+/*
+addNewDoorToRoomIfPossible: this function will add a new door to a room if possible
+input: the room
+output: a bool saying if a door was added
+*/
+bool WorldGenerator::addNewDoorToRoomIfPossible(Room* room)
+{
+	vector<Directions> directions = getFourDirectionsInRandomOreder();// getting randomized directions
+	Coords checkingCoord;
+	vector<Coords> doorCoords = RandTools::randomizeCoordsVec(room->getDoorCoords());//and randomized door coords
+	Door doorToAdd, oppositDoor;
+	Room* blockingRoom = nullptr;
+
+	for (auto doorCoord : doorCoords)
+	{
+		for (auto direction : directions)
+		{
+			checkingCoord = doorCoord;
+			checkingCoord.move(direction);// getting the secondSide
+			if (room->isDoorExists(doorCoord, direction) == false && room->isCoordInRoom(checkingCoord) == false)// checking door validity
+			{
+				blockingRoom = room->searchRoom(checkingCoord);// check if there already is a room where the door is leading
+				if (blockingRoom == nullptr)// if no
+				{
+					doorToAdd.firstSide = doorCoord;
+					doorToAdd.secondSide = checkingCoord;
+					doorToAdd.facing = direction;// make the door
+					doorToAdd.leadingTo = makeValidType(doorToAdd.secondSide, getOppositeDoor(room, doorToAdd));//create a new room
+					room->addDoor(doorToAdd);//adding a door
+					return true;
+				}
+				else if (blockingRoom->getMaxDoors() > blockingRoom->getDoors().size())// if a room is ther, and it has enaugh place for one door
+				{
+					doorToAdd.firstSide = doorCoord;//same thing
+					doorToAdd.secondSide = checkingCoord;
+					doorToAdd.facing = direction;
+					doorToAdd.leadingTo = blockingRoom;
+					room->addDoor(doorToAdd);//add the door to the room
+					oppositDoor = getOppositeDoor(room, doorToAdd);// add the opposite door
+					blockingRoom->addDoor(oppositDoor);//to the opposite room
+					return true;
+				}
+			}
+		}
+	}
+
+
+	return false;
+
+}
+
 
 
 

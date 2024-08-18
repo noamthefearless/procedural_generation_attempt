@@ -60,7 +60,7 @@ vector<RotationTypes> RandTools::randomizeRotationTypesVec(vector<RotationTypes>
 	int index = 0;
 	while (vec.size() != 0)
 	{
-		index = RandTools::getRandomVal(0, vec.size());// getting a random index
+		index = RandTools::getRandomVal(0, vec.size() - 1);// getting a random index
 		result.push_back(vec[index]);// putting it in the new vector
 		vec.erase(vec.begin() + index);// removing from next itterations
 	}
@@ -84,7 +84,7 @@ vector<RoomTypes> RandTools::randomizeRoomTypesVec(vector<RoomTypes> vec)
 	int index = 0;
 	while (vec.size() != 0)
 	{
-		index = RandTools::getRandomVal(0, vec.size());// getting a random index
+		index = RandTools::getRandomVal(0, vec.size() - 1);// getting a random index
 		result.push_back(vec[index]);// putting it in the new vector
 		vec.erase(vec.begin() + index);// removing from next itterations
 	}
@@ -109,7 +109,7 @@ vector<Coords> RandTools::randomizeCoordsVec(vector<Coords> vec)
 	int index = 0;
 	while (vec.size() != 0)
 	{
-		index = RandTools::getRandomVal(0, vec.size());// getting a random index
+		index = RandTools::getRandomVal(0, vec.size() - 1);// getting a random index
 		result.push_back(vec[index]);// putting it in the new vector
 		vec.erase(vec.begin() + index);// removing from next itterations
 	}
