@@ -174,6 +174,77 @@ Room* WorldGenerator::makeValidType(Coords voidCoord, Door door)
 
 
 /*
+walkInWorld: this function will allow you to walk in the world
+input: the starter room and coord
+output: non
+*/
+void WorldGenerator::walkInWorld(Room* currentRoom, Coords walkerCoord)
+{
+
+	char command = ' ';
+	Directions walkingDirection;
+	Coords goingTo;
+	do
+	{
+		system("cls");//temporary - will be replaced with a more sophisticate solution
+		std::cout << StringTools::deserializeRoom(StringTools::drawRoom(currentRoom, walkerCoord));
+		std::cout << "X: " << walkerCoord.getCoords().x << ", Z: " << walkerCoord.getCoords().z << std::endl;
+		command = _getch();// getting the char command
+		if (command == 'q' || command == 'w' || command == 'a' || command == 's' || command == 'd')// if valid
+		{
+			switch (command)
+			{
+			case 'w':// getting direction from the command
+				walkingDirection = NORTH;
+				break;
+			case 'a':
+				walkingDirection = WEST;
+				break;
+			case 's':
+				walkingDirection = SOUTH;
+				break;
+			case 'd':
+				walkingDirection = EAST;
+				break;
+			default:
+				break;
+			}
+			if (command != 'q')
+			{
+				goingTo = walkerCoord;
+				goingTo.move(walkingDirection);// going to the next coord
+				if (currentRoom->isCoordInRoom(goingTo) == true)//if the coord is in the room
+				{
+					walkerCoord = goingTo;// you can just go to the coord
+				}
+				else
+				{
+					if (currentRoom->isDoorExists(walkerCoord, walkingDirection))//check for door
+					{
+						currentRoom = currentRoom->getRoomThroughDoor(walkerCoord, walkingDirection);//get the door leadingTo
+						walkerCoord = goingTo;//and going there
+					}
+				}
+			}
+
+		}
+
+
+
+
+	}while (command != 'q');
+
+
+
+
+
+
+
+}
+
+
+
+/*
 getFourDirectionsInRandomOreder: this function will simply return all 4 directions in a random order
 input: non
 output: a vector with 4 directions in a random order
@@ -231,7 +302,7 @@ bool WorldGenerator::addNewDoorToRoomIfPossible(Room* room)
 					room->addDoor(doorToAdd);//adding a door
 					return true;
 				}
-				else if (blockingRoom->getMaxDoors() > blockingRoom->getDoors().size())// if a room is ther, and it has enaugh place for one door
+				else if (blockingRoom->getMaxDoors() > blockingRoom->getDoors().size() && blockingRoom->isDoorCoord(checkingCoord))// if a room is ther, and it has enaugh place for one door
 				{
 					doorToAdd.firstSide = doorCoord;//same thing
 					doorToAdd.secondSide = checkingCoord;

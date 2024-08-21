@@ -17,6 +17,7 @@
 #include "StorageVehicleUnit.h"
 #include "StorageConnectedCorridors.h"
 #include "StorageSquareCorridor.h"
+#include <conio.h>
 
 class WorldGenerator
 {
@@ -46,6 +47,7 @@ public:
 	Room* makeValidType(Coords voidCoord, Door door);
 	vector<Directions> getFourDirectionsInRandomOreder();
 	bool addNewDoorToRoomIfPossible(Room* room);
+	void walkInWorld(Room* currentRoom, Coords walkerCoord);
 
 
 

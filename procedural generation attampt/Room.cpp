@@ -122,6 +122,27 @@ Coords Room::getRoot() const
 
 
 
+/*
+getRoomThroughDoor: this funtion will get a room that a door is pointing at
+input: the door coord and its direction to find the door itself
+output; the room ptr or a null if no door was found
+*/
+Room* Room::getRoomThroughDoor(Coords doorCoord, Directions facing)
+{
+	vector<Door> doors;
+	doors = getDoors();// getting all doors
+	for (auto itt : doors)
+	{
+		if (itt.firstSide == doorCoord && itt.facing == facing)//if matches
+		{
+			return itt.leadingTo;//get the leading room
+		}
+	}
+	return nullptr;//non were found
+}
+
+
+
 
 /*
 isDoorExists: this function will check if a door exists

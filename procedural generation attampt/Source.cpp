@@ -4,7 +4,9 @@
 
 int main()
 {
-	WorldGenerator w(time(NULL));
+	//1723994599
+	unsigned long long seed = 5;
+	WorldGenerator w(seed);
 	Coords coord1, coord2;
 	vector<Coords> vc1;
 	Door door;
@@ -17,10 +19,18 @@ int main()
 	door.leadingTo = w.makeValidType(coord2, w.getOppositeDoor(w.m_RoomRoot, door));
 	w.m_RoomRoot->setRoomToNullDoor(door);
 	w.addNewDoorToRoomIfPossible(w.m_RoomRoot);
+	w.addNewDoorToRoomIfPossible(w.m_RoomRoot->getDoors()[0].leadingTo);
+	w.addNewDoorToRoomIfPossible(w.m_RoomRoot->getDoors()[1].leadingTo);
+	w.addNewDoorToRoomIfPossible(w.m_RoomRoot->getDoors()[0].leadingTo);
+	w.addNewDoorToRoomIfPossible(w.m_RoomRoot->getDoors()[0].leadingTo->getDoors()[1].leadingTo);
+
+
+
 	
-	std::cout  << StringTools::deserializeRoom(StringTools::drawRoom(w.m_RoomRoot, w.m_RoomRoot->getRoot()));
-	std::cout << StringTools::deserializeRoom(StringTools::drawRoom(w.m_RoomRoot->getDoors()[0].leadingTo, w.m_RoomRoot->getDoors()[0].leadingTo->getRoot()));
-	std::cout << StringTools::deserializeRoom(StringTools::drawRoom(w.m_RoomRoot->getDoors()[1].leadingTo, w.m_RoomRoot->getDoors()[1].leadingTo->getRoot()));
+	w.walkInWorld(w.m_RoomRoot, w.m_RoomRoot->getRoot());
+	//std::cout  << StringTools::deserializeRoom(StringTools::drawRoom(w.m_RoomRoot, w.m_RoomRoot->getRoot()));
+	//std::cout << StringTools::deserializeRoom(StringTools::drawRoom(w.m_RoomRoot->getDoors()[0].leadingTo, w.m_RoomRoot->getDoors()[0].leadingTo->getRoot()));
+	//std::cout << StringTools::deserializeRoom(StringTools::drawRoom(w.m_RoomRoot->getDoors()[1].leadingTo, w.m_RoomRoot->getDoors()[1].leadingTo->getRoot()));
 
 	return 0;
 }

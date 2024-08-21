@@ -53,7 +53,7 @@ public:
 	Room* searchRoom(Coords& coord);
 	void setRoomToNullDoor(Door& door);
 	bool isDoorExists(Coords doorCoord, Directions facing);
-
+	Room* getRoomThroughDoor(Coords doorCoord, Directions facing);
 
 	virtual vector<Coords> getRoomCoords() const = 0;
 	virtual vector<Coords> getDoorCoords() const = 0;
