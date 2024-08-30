@@ -70,6 +70,7 @@ protected:
 
 	Room* findRoomUsingCoord(Coords& coord, std::unordered_set<Room*>& visitedRooms);
 
+
 	Coords m_root;
 	RoomTypes m_type;
 	RotationTypes m_rotation;

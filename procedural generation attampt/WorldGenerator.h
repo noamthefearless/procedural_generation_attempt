@@ -19,6 +19,11 @@
 #include "StorageSquareCorridor.h"
 #include <conio.h>
 
+
+#define ROOM_CAP 300
+
+
+
 class WorldGenerator
 {
 public:
@@ -27,6 +32,8 @@ public:
 
 
 	Room* getRootRoom() const;
+	int getRoomCount() const;
+
 
 
 
@@ -36,23 +43,29 @@ public:
 	bool isRoomInCollision(Room* room);
 	void clearRooms(Room* currentRoom, std::unordered_set<Room*>& visitedRooms);
 	vector<RoomTypes> getRandomizedRoomTypes();
+
 	vector<RotationTypes> getRandomizedRotatinTypes(RoomTypes roomType);
 	void setLineOfCoordsInRow(Coords& starterCoord, vector<Coords>& line, Directions direction, int n);
 	vector<Coords> getPossibleRootCoords(Coords coord, Directions doorDirection);
+
 	Room* allocateRoom(Coords root, RoomTypes type, RotationTypes rotation, Door door);
 	Door getOppositeDoor(Room* room, Door door);
 	Directions getOppositeDirection(Directions direction);
+
 	Room* makeValidRoom(Coords voidCoord, RoomTypes type, RotationTypes rotation, Door door);
 	Room* makeValidRotation(Coords voidCoord, RoomTypes type, Door door);
 	Room* makeValidType(Coords voidCoord, Door door);
+
 	vector<Directions> getFourDirectionsInRandomOreder();
 	bool addNewDoorToRoomIfPossible(Room* room);
 	void walkInWorld(Room* currentRoom, Coords walkerCoord);
 
+	void generateRooms(Room* currentRoom, std::unordered_set<Room*>& visitedRooms);
 
 
 
 	Room* m_RoomRoot = nullptr;
+	int m_roomCount = 0;
 };
 
 

@@ -4,8 +4,10 @@
 
 int main()
 {
-	//1723994599
-	unsigned long long seed = 5;
+	//1724763334
+	//1724763475
+	unsigned long long seed = time(NULL);
+	std::unordered_set<Room*> q;
 	WorldGenerator w(seed);
 	Coords coord1, coord2;
 	vector<Coords> vc1;
@@ -18,13 +20,7 @@ int main()
 	w.m_RoomRoot = new StorageCorridor(coord1, STORAGE_CORRIDOR_FACING_EAST, door);
 	door.leadingTo = w.makeValidType(coord2, w.getOppositeDoor(w.m_RoomRoot, door));
 	w.m_RoomRoot->setRoomToNullDoor(door);
-	w.addNewDoorToRoomIfPossible(w.m_RoomRoot);
-	w.addNewDoorToRoomIfPossible(w.m_RoomRoot->getDoors()[0].leadingTo);
-	w.addNewDoorToRoomIfPossible(w.m_RoomRoot->getDoors()[1].leadingTo);
-	w.addNewDoorToRoomIfPossible(w.m_RoomRoot->getDoors()[0].leadingTo);
-	w.addNewDoorToRoomIfPossible(w.m_RoomRoot->getDoors()[0].leadingTo->getDoors()[1].leadingTo);
-
-
+	w.generateRooms(w.m_RoomRoot, q);
 
 	
 	w.walkInWorld(w.m_RoomRoot, w.m_RoomRoot->getRoot());

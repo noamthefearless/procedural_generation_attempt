@@ -13,6 +13,18 @@ Room* WorldGenerator::getRootRoom() const
 }
 
 
+
+/*
+getRoomCount: this function will return the number of rooms
+input: non
+output: the room count
+*/
+int WorldGenerator::getRoomCount() const
+{
+	return m_roomCount;
+}
+
+
 //c'tor: this will set the initial seed
 WorldGenerator::WorldGenerator(unsigned long long seed)
 {
@@ -300,6 +312,7 @@ bool WorldGenerator::addNewDoorToRoomIfPossible(Room* room)
 					doorToAdd.facing = direction;// make the door
 					doorToAdd.leadingTo = makeValidType(doorToAdd.secondSide, getOppositeDoor(room, doorToAdd));//create a new room
 					room->addDoor(doorToAdd);//adding a door
+					m_roomCount++;
 					return true;
 				}
 				else if (blockingRoom->getMaxDoors() > blockingRoom->getDoors().size() && blockingRoom->isDoorCoord(checkingCoord))// if a room is ther, and it has enaugh place for one door
@@ -311,6 +324,7 @@ bool WorldGenerator::addNewDoorToRoomIfPossible(Room* room)
 					room->addDoor(doorToAdd);//add the door to the room
 					oppositDoor = getOppositeDoor(room, doorToAdd);// add the opposite door
 					blockingRoom->addDoor(oppositDoor);//to the opposite room
+					m_roomCount++;
 					return true;
 				}
 			}
@@ -578,6 +592,68 @@ void WorldGenerator::clearRooms(Room* currentRoom, std::unordered_set<Room*>& vi
 	return;
 }
 
+
+
+
+
+
+/*
+generateRooms: this function will generate rooms
+input: the room to start from and the room that are visited
+output: non
+*/
+void WorldGenerator::generateRooms(Room* currentRoom, std::unordered_set<Room*>& visitedRooms)
+{
+	vector<Door> roomDoors;
+	if (visitedRooms.find(currentRoom) != visitedRooms.end())//checking if visited already
+	{
+		return;
+	}
+	visitedRooms.insert(currentRoom);
+	int numOfDoorsToAdd = 0, index = 0;
+
+	if (m_roomCount >= ROOM_CAP)//if room cap has been reached
+	{
+		return;
+	}
+	if (currentRoom->getDoors().size() < currentRoom->getMaxDoors())//if more doors can be added
+	{
+		numOfDoorsToAdd = currentRoom->getMaxDoors() - currentRoom->getDoors().size();
+		numOfDoorsToAdd = RandTools::getRandomVal(1, numOfDoorsToAdd);// adding doors
+	}
+
+	while (numOfDoorsToAdd > 0)
+	{
+		addNewDoorToRoomIfPossible(currentRoom);//adding doors
+		numOfDoorsToAdd--;
+	}
+	roomDoors = currentRoom->getDoors();
+	for (auto itt : roomDoors)
+	{
+		if (itt.leadingTo->getType() != STORAGE_CLOSET && itt.leadingTo->getDoors().size() == 1)// if possible
+		{
+			addNewDoorToRoomIfPossible(itt.leadingTo);//add another door through
+		}
+	}
+
+	system("cls");
+	std::cout << "loading - " << (int)(((float)m_roomCount / ROOM_CAP) * 100) << "%" << std::endl;//loading update
+
+
+	roomDoors = currentRoom->getDoors();
+	while (roomDoors.size() != 0)
+	{
+		index = RandTools::getRandomVal(0, roomDoors.size() - 1);
+		generateRooms(roomDoors[index].leadingTo, visitedRooms);//callling this function on all doors, in random order
+		roomDoors.erase(roomDoors.begin() + index);
+
+	}
+
+	return;
+
+
+
+}
 
 
 
